@@ -39,4 +39,15 @@ describe Article do
     article5.should be_valid
   end
 
+  # Validation should pass when article name is capitalize with rspec 2.0
+  it "Validation should pass when article name is capitalize" do
+    article6 = FactoryGirl.build(:article, name: "article1")
+    article6.name == "Article1"
+  end
+
+  # Validation should pass when article name is capitalize with rspec 3.0
+  it "on article name capital validation should pass" do
+    article7 = FactoryGirl.build(:article, name: "article1")
+    expect(article7.name) == "Article1"
+  end  
 end

@@ -13,6 +13,14 @@ describe ArticlesController do
     response.should be_success
   end
 
+  #rspec for new action
+  it "should pass if new action calls with new object" do
+    article = FactoryGirl.build(:article)
+    Article.stub(:new).and_return(article)
+    get :new, {:params1 => "0123"}
+    assigns(:article).should == article
+  end
+
   
 
 end

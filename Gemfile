@@ -28,8 +28,14 @@ gem 'spring',        group: :development
 
 group :test do
   gem "watir-rails"
+  gem "shoulda-matchers"
+  gem "shoulda-callback-matchers"
 end
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
+  gem 'factory_girl_rails'
+  gem 'capybara'
 end
+
+gem 'database_cleaner', '~> 1.3.0'

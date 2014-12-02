@@ -42,8 +42,15 @@ describe "POST create" do
       p article
       p "------------------------------------------"
       expect{ post :create, article: article}.to change(Article,:count).by(1)
-      #expect(response).to redirect_to(root_url)
+      #after successfully creation redirect to some other action
+       expect(response).to redirect_to(article_path(assigns[:article]))
     end
+
+    it "redirects to the article path" do
+      post :create, article: attributes_for(:article)
+      expect(response).to redirect_to(article_path(assigns[:article]))
+    end
+
   end
 end 
 

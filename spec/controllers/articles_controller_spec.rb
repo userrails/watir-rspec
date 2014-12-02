@@ -75,9 +75,18 @@ end
     get :edit, {:id => @article1.id}
   end
 
+describe "PUT update" do
+  let(:article) {FactoryGirl.create(:article)}
+
   it "it success when update an article" do
     @article3 = FactoryGirl.create(:article, :name => "name", :address => "address", :id => 3)
     expect {put :update, :id => @article3.id }
+    #expect(response).to redirect_to(root_path)
+  end
+end
+
+  it "should be redirect to / if Article deleted" do
+    delete :destroy, :id => @article1.id 
   end
 
 end

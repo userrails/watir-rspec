@@ -36,7 +36,7 @@ describe "POST create" do
   let(:article) { FactoryGirl.create(:article) }
 
   context "with valid attributes" do
-    it "creates a new article" do
+    it "creates a new article and redirects to article path" do
       article = FactoryGirl.attributes_for(:article)
       p "------------------------------------------"
       p article
@@ -50,7 +50,6 @@ describe "POST create" do
       post :create, article: attributes_for(:article)
       expect(response).to redirect_to(article_path(assigns[:article]))
     end
-
   end
 end 
 
@@ -76,6 +75,9 @@ end
     get :edit, {:id => @article1.id}
   end
 
-
+  it "it success when update an article" do
+    @article3 = FactoryGirl.create(:article, :name => "name", :address => "address", :id => 3)
+    expect {put :update, :id => @article3.id }
+  end
 
 end

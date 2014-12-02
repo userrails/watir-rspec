@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe ArticlesController do
   before(:each) do
-    @article1 = FactoryGirl.create(:article, name: "article1", address: "address1")
+    @article1 = FactoryGirl.create(:article, name: "article1", address: "address1", :id => 10)
     @article2 = FactoryGirl.create(:article, name: "article2", address: "address2")
   end
 
@@ -10,7 +10,7 @@ describe ArticlesController do
   it "it should pass if index calls and loads all articles" do 
     Article.all.should == [@article1, @article2]
     get :index
-    response.should be_success
+    response.should be_success   
   end
 
   # for new action
@@ -42,6 +42,7 @@ describe "POST create" do
       p article
       p "------------------------------------------"
       expect{ post :create, article: article}.to change(Article,:count).by(1)
+      #expect(response).to redirect_to(root_url)
     end
   end
 end 
@@ -54,5 +55,20 @@ end
       expect(dbl.address).to eq("address1")
     end
   end
+
+  #pass show action
+  it "should be success if show pass" do
+      p "---------------------------------------"
+      p @article1.id
+      p "---------------------------------------"
+      get :show, {:id => @article1.id}
+  end
+
+  #pass edit action
+  it "should pass if edit action pass" do
+    get :edit, {:id => @article1.id}
+  end
+
+
 
 end

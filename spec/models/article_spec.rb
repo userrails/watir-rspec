@@ -22,7 +22,7 @@ describe Article do
     expect(article3).to be_valid
   end
 
-  # make validation fails for uniqueness for the article name, this will through the error with validation not passed
+  # make validation fails for uniqueness for the article name, this will through the error with validation not passed since both are same name
   it "validation pass when article name is unique" do
     article4 = FactoryGirl.build(:article, name: "article1")
     p "-------------------------------------------"

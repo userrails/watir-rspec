@@ -7,7 +7,7 @@ Things you may want to cover:
 
 * watir, watir-webdriver, rspec-rails, factory_girl_rails, shoulda-matchers, should-callbacks
 
-* System dependencies
+* Stub is fake impl of method, Mock is fake impl of object
 
 * Configuration
 

@@ -2,16 +2,33 @@ require "rails_helper"
 require "rubygems"
 require "watir-webdriver"
  
-describe "in localhost" do
+describe "localhost articles index" do
   let(:browser) { @browser ||= Watir::Browser.new :chrome } 
-  before { browser.goto "http://localhost:3000" } 
+  let(:name) { SecureRandom.hex(6) }
+  let(:address) {SecureRandom.hex(10)}
+  before(:each) { browser.goto "http://localhost:3000" } 
 
-  it "should click on new button to open the articles new form" do
+  after(:all) {browser.close}
+
+  it "should click on new link and save the articles and checks if articles present" do
     browser.link(href: '/articles/new').click
-    browser.text_field(:id, "article_name").when_present.set("article1111")
-    browser.textarea(:id, "article_address").when_present.set("address1")   
+    # expect(browser.url).to eq('http://localhost:3000/')
+
+    
+
+    browser.text_field(:id, "article_name").when_present.set(name)
+    browser.textarea(:id, "article_address").when_present.set(address)   
     browser.button.click
-    browser.td(:text, /article1111/).text.should_not be_nil
+
+    #to check if text exists in table or not after records save
+    browser.td(:text => name).text.should_not be_nil    
+    browser.td(:text => address).text.should_not be_nil
+
+   # expect(browser.div(class: 'notice').text).to eq('Article was successfully created.')
+  end
+
+  it "should click on show link and view the article" do
+    browser.link(href: "/articles/29").click
   end
   
 end

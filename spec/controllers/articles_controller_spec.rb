@@ -43,12 +43,12 @@ describe "POST create" do
       p "------------------------------------------"
       expect{ post :create, article: article}.to change(Article,:count).by(1)
       #after successfully creation redirect to some other action
-      # expect(response).to redirect_to(article_path(assigns[:article]))
+       expect(response).to redirect_to(articles_path)
     end
 
     it "redirects to the article path" do
       post :create, article: attributes_for(:article)
-      #expect(response).to redirect_to(article_path(assigns[:article]))
+      expect(response).to redirect_to(articles_path)
     end
   end
 end 
@@ -87,6 +87,8 @@ end
 
   it "should be redirect to / if Article deleted" do
     delete :destroy, :id => @article1.id 
+    #after successfully deletion redirect to some other action
+    expect(response).to redirect_to(articles_path)
   end
 
 end

@@ -19,6 +19,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1/edit
   def edit
+    @article = Article.find(params[:id])
   end
 
   # POST /articles
@@ -40,15 +41,13 @@ class ArticlesController < ApplicationController
   # PATCH/PUT /articles/1
   # PATCH/PUT /articles/1.json
   def update
-    respond_to do |format|
-      if @article.update(article_params)
-        format.html { redirect_to @article, notice: 'Article was successfully updated.' }
-        format.json { render :show, status: :ok, location: @article }
-      else
-        format.html { render :edit }
-        format.json { render json: @article.errors, status: :unprocessable_entity }
-      end
+    @article = Article.find(params[:id])
+    if @article.update_attributes(article_params)
+      redirect_to articles_path
+    else
+      render :action => "edit"
     end
+    
   end
 
   # DELETE /articles/1
@@ -70,5 +69,10 @@ class ArticlesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
       params.require(:article).permit(:name, :address)
+    end
+
+    private
+    def article_params
+      params.require(:article).permit!
     end
 end

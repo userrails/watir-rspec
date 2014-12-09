@@ -21,7 +21,9 @@ Things you may want to cover:
 
 * Deployment instructions
 
-* ...
+* http://everydayrails.com/2012/04/07/testing-series-rspec-controllers.html
+
+* check the categories controller and category model for the exact test cases
 
 
 Please feel free to use a different markup language if you do not plan to run

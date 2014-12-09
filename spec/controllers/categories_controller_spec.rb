@@ -114,5 +114,20 @@ describe "CREATE #post" do
     end
   end
 
+  describe "delete #destroy" do
+    before(:each) do 
+      @category = FactoryGirl.create(:category)
+    end 
 
+    it "deletes the category" do
+      expect {
+        delete :destroy, id: @category
+        }.to change(Category, :count).by(-1)
+    end
+
+    it "redirect to category#index" do 
+      delete :destroy, id: @category
+      response.should redirect_to categories_path
+    end
+  end
 end

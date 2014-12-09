@@ -2,6 +2,12 @@ require 'rails_helper'
 
 RSpec.describe CategoriesController, :type => :controller do
 
+# authenticate_user!
+before (:each) do
+  @user = FactoryGirl.create(:user, :email => "user1@gmail.com", :password => "123123123")
+  sign_in @user
+end
+
  before(:each) do
   @category1 = FactoryGirl.create(:category, name: "category 2")
   @category2 = FactoryGirl.create(:category, name: "category 3")

@@ -7,7 +7,6 @@ RSpec.describe CategoriesController, :type => :controller do
  end
 
  describe "GET #index" do
-
     it "responds successfully with an HTTP 200 status code" do
       get :index
       expect(response).to be_success
@@ -25,5 +24,12 @@ RSpec.describe CategoriesController, :type => :controller do
     expect(assigns(:categories)).to match_array([@category1, @category2])
    end
  end
+
+describe "CREATE #post" do
+  it "redirects to categories index page upon save" do 
+    post :create, category: FactoryGirl.attributes_for(:category)
+    response.should redirect_to categories_path
+  end
+end
 
 end

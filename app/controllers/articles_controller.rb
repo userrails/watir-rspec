@@ -70,9 +70,4 @@ class ArticlesController < ApplicationController
     def article_params
       params.require(:article).permit(:name, :address)
     end
-
-    private
-    def article_params
-      params.require(:article).permit!
-    end
 end

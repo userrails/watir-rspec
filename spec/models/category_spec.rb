@@ -32,6 +32,6 @@ RSpec.describe Category, :type => :model do
       #expectation // should||should_not be_valid
       @category = FactoryGirl.build(:category)
       expect(@category.name == "Category 1")      
-    end    
+    end
   end
 end

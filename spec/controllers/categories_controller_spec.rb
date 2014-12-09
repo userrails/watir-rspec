@@ -6,30 +6,65 @@ RSpec.describe CategoriesController, :type => :controller do
   @category2 = FactoryGirl.create(:category, name: "category 3")
  end
 
- describe "GET #index" do
+ describe "Testing GET #index" do
+    # not required
     it "responds successfully with an HTTP 200 status code" do
       get :index
       expect(response).to be_success
       expect(response).to have_http_status(200)
     end
 
+    # renders the :index view
     it "renders the index template" do
       get :index
       expect(response).to render_template("index")
     end
 
-    # it loads @cat1, @cat2 in @categories
+    # it loads @cat1, @cat2 in @categories that is populates an array of contacts
    it "should pass if loads all of the categories into @categories" do
     get :index
     expect(assigns(:categories)).to match_array([@category1, @category2])
    end
  end
 
-describe "CREATE #post" do
-  it "redirects to categories index page upon save" do 
-    post :create, category: FactoryGirl.attributes_for(:category)
-    response.should redirect_to categories_path
+describe "Testing GET #new" do
+  it "should create a new category object on calling new action" do
+    category = FactoryGirl.build(:category)
+    Category.stub(:new).and_return(category)
+    get :new
+    assigns(:category).should == category
   end
 end
+
+describe "CREATE #post" do
+    context "with valid attributes" do
+      # process 1: attributes_for generate hash of values for the ruby object category:
+      it "redirects to categories index page upon save" do 
+        post :create, category: FactoryGirl.attributes_for(:category)
+        response.should redirect_to categories_path
+      end
+      # process 2:
+      it "creates a new categories" do
+        expect {
+          post :create, category: FactoryGirl.attributes_for(:category)
+        }.to change(Category, :count).by(1)        
+      end
+    end 
+
+    context "with invalid attributes" do 
+      #eg shoes record should not be saved if invalid attributes
+      it "doesnot save the new category" do 
+        expect{
+          post :create, category: FactoryGirl.attributes_for(:invalid_category)
+        }.to_not change(Category, :count)
+      end
+
+      #when records not saved it should render the new action or page
+      it "re-renders the new method" do
+        post :create, category: FactoryGirl.attributes_for(:invalid_category)
+        response.should render_template :new
+      end
+    end
+  end
 
 end

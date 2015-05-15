@@ -34,9 +34,9 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
-  # gem 'rspec-rails', '~> 2.0'
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem 'cucumber-rails', require: false
 end
 
 gem 'database_cleaner', '~> 1.3.0'

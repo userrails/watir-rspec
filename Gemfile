@@ -30,6 +30,7 @@ group :test do
   gem "watir-rails"
   gem "shoulda-matchers"
   gem "shoulda-callback-matchers"
+  gem 'selenium-webdriver'
 end
 
 group :development, :test do
